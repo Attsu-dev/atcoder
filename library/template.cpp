@@ -6,8 +6,8 @@ int main() {}
 #else
 #include <bits/stdc++.h>
 using namespace std;
-#include <atcoder/all>
-using namespace atcoder;
+// #include <atcoder/all>
+// using namespace atcoder;
 struct Init {
   Init() {
     ios::sync_with_stdio(0);
