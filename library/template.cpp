@@ -67,6 +67,18 @@ void print(const Head& head, const Tail&... tail) {
   cout << head << spa;
   print(tail...);
 }
+void dbg() {
+  cerr << el;
+}
+template <typename T>
+void dbg(const T& t) {
+  cerr << t << el;
+}
+template <typename Head, typename... Tail>
+void dbg(const Head& head, const Tail&... tail) {
+  cerr << head << spa;
+  print(tail...);
+}
 template <typename T1, typename T2>
 inline bool chmax(T1& a, T2 b) {
   bool compare = a < b;
