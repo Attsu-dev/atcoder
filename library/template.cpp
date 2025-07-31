@@ -35,9 +35,9 @@ using VS = vector<string>;
 #define Equals(a, b) (fabs((a) - (b)) < eps)
 #define debug(x) cerr << #x << " = " << x << el
 
-const double pi = 3.141592653589793238;
-const int inf = 1073741823;
-const ll infl = 1LL << 60;
+const double PI = 3.141592653589793238;
+const int INF = 1073741823;
+const ll INFLL = 1LL << 60;
 const string ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string abc = "abcdefghijklmnopqrstuvwxyz";
 const int dx[4] = {1, 0, -1, 0};
