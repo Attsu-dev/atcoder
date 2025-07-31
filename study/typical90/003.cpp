@@ -1,21 +1,25 @@
 #if !__INCLUDE_LEVEL__
 #include __FILE__
 
-void getdist(ll start, VLL& d, const VVLL& G) {
+// 各ノードとの距離を返す
+// d[i] : iとstartの距離
+// G    : 重みなしグラフ
+VLL getdist(ll start, const VVLL& G) {
+  VLL d(G.size(), INFLL);
+  d[start] = 0;
   queue<ll> q;
   q.push(start);
-  d[start] = 0;
   while (!q.empty()) {
     ll pos = q.front();
     q.pop();
-
     for (ll next : G[pos]) {
-      if (d[next] == LLONG_MAX) {
+      if (d[next] == INFLL) {
         d[next] = d[pos] + 1;
         q.push(next);
       }
     }
   }
+  return d;
 }
 
 int main() {
@@ -30,13 +34,14 @@ int main() {
     G[B].push_back(A);
   }
 
-  VLL d(N, LLONG_MAX);
-  getdist(0, d, G);
-  ll max_i = distance(d.begin(), max_element(all(d)));
-  dbg(max_i);
-  VLL d2(N, LLONG_MAX);
-  getdist(max_i, d2, G);
+  // 根から最も遠い頂点を求める
+  VLL d1 = getdist(0, G);
+  ll max_id = distance(d1.begin(), max_element(all(d1)));
 
+  // 木の直径(max_iと、max_iから最も遠い頂点との距離)を求める
+  VLL d2 = getdist(max_id, G);
+
+  // 木の直径+1が答え
   print(*max_element(all(d2)) + 1);
 }
 
@@ -73,8 +78,8 @@ using VS = vector<string>;
 #define debug(x) cerr << #x << " = " << x << el
 
 const double pi = 3.141592653589793238;
-const int inf = 1073741823;
-const ll infl = 1LL << 60;
+const int INF = 1073741823;
+const ll INFLL = 1LL << 60;
 const string ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string abc = "abcdefghijklmnopqrstuvwxyz";
 const int dx[4] = {1, 0, -1, 0};
