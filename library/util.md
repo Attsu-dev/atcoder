@@ -29,3 +29,56 @@ else
 }
 print(ok);
 ```
+
+# 行列計算用の構造体
+```cpp
+struct Matrix {
+  vector<vector<long long>> a;
+  int H, W;
+  long long mod;
+
+  Matrix(int h, int w, long long mod = 1e9 + 7, bool ident = false)
+      : H(h), W(w), mod(mod) {
+    a.assign(h, vector<long long>(w, 0));
+    if (ident) {
+      for (int i = 0; i < min(h, w); i++)
+        a[i][i] = 1;
+    }
+  }
+
+  // []アクセス用
+  vector<long long>& operator[](int i) { return a[i]; }
+  const vector<long long>& operator[](int i) const { return a[i]; }
+
+  // 行列積
+  Matrix operator*(const Matrix& o) const {
+    assert(W == o.H);
+    Matrix res(H, o.W, mod);
+    for (int i = 0; i < H; i++) {
+      for (int k = 0; k < W; k++) {
+        if (a[i][k] == 0)
+          continue;
+        long long aik = a[i][k];
+        for (int j = 0; j < o.W; j++) {
+          res.a[i][j] = (res.a[i][j] + aik * o.a[k][j]) % mod;
+        }
+      }
+    }
+    return res;
+  }
+
+  // 累乗
+  Matrix pow(long long exp) const {
+    assert(H == W);
+    Matrix base = *this;
+    Matrix res(H, H, mod, true);  // 単位行列
+    while (exp > 0) {
+      if (exp & 1)
+        res = res * base;
+      base = base * base;
+      exp >>= 1;
+    }
+    return res;
+  }
+};
+```
