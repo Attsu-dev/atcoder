@@ -22,3 +22,32 @@ VLL getdist(ll start, const VVLL& G) {
   return d;
 }
 ```
+
+# 重み付き無向グラフ
+## ダイクストラ法
+```cpp
+struct Edge {
+  ll to;
+  ll cost;
+};
+
+VLL dijkstra(const vector<vector<Edge>>& G, ll start) {
+  VLL d(G.size(), INFLL);
+  priority_queue<PLL, vector<PLL>, greater<PLL>> q;
+  d[start] = 0;
+  q.push({0, start});
+
+  while (!q.empty()) {
+    auto [cost, pos] = q.top();
+    q.pop();
+    if (cost > d[pos])
+      continue;
+    for (auto& e : G[pos]) {
+      if (chmin(d[e.to], cost + e.cost)) {
+        q.push({d[e.to], e.to});
+      }
+    }
+  }
+  return d;
+}
+```
