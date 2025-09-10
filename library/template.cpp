@@ -96,5 +96,30 @@ inline bool chmin(T1& a, T2 b) {
 void YesNo(bool b) {
   cout << (b ? "Yes" : "No") << el;
 }
-
+struct Vec2 {
+  ll y = 0, x = 0;
+  Vec2() = default;
+  Vec2(ll Y, ll X) : y(Y), x(X) {}
+  Vec2 operator+(const Vec2& o) const { return {y + o.y, x + o.x}; }
+  Vec2 operator-(const Vec2& o) const { return {y - o.y, x - o.x}; }
+  Vec2 operator*(ll k) const { return {k * y, k * x}; }
+  Vec2& operator+=(const Vec2& o) {
+    y += o.y;
+    x += o.x;
+    return *this;
+  }
+  Vec2& operator-=(const Vec2& o) {
+    y -= o.y;
+    x -= o.x;
+    return *this;
+  }
+  bool operator==(const Vec2& o) const { return y == o.y && x == o.x; }
+  bool operator!=(const Vec2& o) const { return !(*this == o); }
+  auto as_pair() const { return std::tie(y, x); }
+  bool operator<(const Vec2& o) const { return as_pair() < o.as_pair(); }
+};
+map<char, Vec2> UDLR_to_Vec2 = {{'U', Vec2(-1, 0)},
+                                {'D', Vec2(1, 0)},
+                                {'L', Vec2(0, -1)},
+                                {'R', Vec2(0, 1)}};
 #endif
