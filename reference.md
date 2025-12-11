@@ -15,6 +15,11 @@
 N+\frac{N}{2}+\frac{N}{3}+\cdots+\frac{N}{N}=O(N\log N)
 ```
 
+## エラトステネスの篩
+- 素因数列挙ができる
+- $O(N \log \log N)$
+- [典型90問 030](study/typical90/030.cpp)
+
 # 文字列
 ## 貪欲法
 - 辞書順最小を求める
